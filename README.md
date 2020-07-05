@@ -1,4 +1,4 @@
 # cs231n
 assignment of CS231n
 
-Finished: KNN, SVM
+Finished: KNN, SVM, Softmax
