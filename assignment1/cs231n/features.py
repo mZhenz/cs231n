@@ -41,14 +41,14 @@ def extract_features(imgs, feature_fns, verbose=False):
   imgs_features[0] = np.hstack(first_image_features).T
 
   # Extract features for the rest of the images.
-  for i in xrange(1, num_images):
+  for i in range(1, num_images):
     idx = 0
     for feature_fn, feature_dim in zip(feature_fns, feature_dims):
       next_idx = idx + feature_dim
       imgs_features[i, idx:next_idx] = feature_fn(imgs[i].squeeze())
       idx = next_idx
     if verbose and i % 1000 == 0:
-      print 'Done extracting features for %d / %d images' % (i, num_images)
+      print('Done extracting features for %d / %d images' % (i, num_images))
 
   return imgs_features
 
@@ -90,16 +90,16 @@ def hog_feature(im):
   else:
     image = np.at_least_2d(im)
 
-  sx, sy = image.shape # image size
-  orientations = 9 # number of gradient bins
-  cx, cy = (8, 8) # pixels per cell
+  sx, sy = image.shape  # image size
+  orientations = 9  # number of gradient bins
+  cx, cy = (8, 8)   # pixels per cell
 
   gx = np.zeros(image.shape)
   gy = np.zeros(image.shape)
-  gx[:, :-1] = np.diff(image, n=1, axis=1) # compute gradient on x-direction
-  gy[:-1, :] = np.diff(image, n=1, axis=0) # compute gradient on y-direction
-  grad_mag = np.sqrt(gx ** 2 + gy ** 2) # gradient magnitude
-  grad_ori = np.arctan2(gy, (gx + 1e-15)) * (180 / np.pi) + 90 # gradient orientation
+  gx[:, :-1] = np.diff(image, n=1, axis=1)  # compute 1th gradient on x-direction
+  gy[:-1, :] = np.diff(image, n=1, axis=0)  # compute 1th gradient on y-direction
+  grad_mag = np.sqrt(gx ** 2 + gy ** 2)   # gradient magnitude
+  grad_ori = np.arctan2(gy, (gx + 1e-15)) * (180 / np.pi) + 90  # gradient orientation
 
   n_cellsx = int(np.floor(sx / cx))  # number of cells in x
   n_cellsy = int(np.floor(sy / cy))  # number of cells in y
@@ -115,7 +115,7 @@ def hog_feature(im):
     # select magnitudes for those orientations
     cond2 = temp_ori > 0
     temp_mag = np.where(cond2, grad_mag, 0)
-    orientation_histogram[:,:,i] = uniform_filter(temp_mag, size=(cx, cy))[cx/2::cx, cy/2::cy].T
+    orientation_histogram[:, :, i] = uniform_filter(temp_mag, size=(cx, cy))[int(cx/2)::cx, int(cy/2)::cy].T
   
   return orientation_histogram.ravel()
 
