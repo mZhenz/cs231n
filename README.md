@@ -8,7 +8,7 @@ assignment of CS231n
 |                 | Two Layer Nets        | ✓    |
 |                 | features              | ✓    |
 | **Assignment2** | Fully Connected Nets  |      |
-|                 | Convolutioal Networks |      |
+|                 | Convolutioal Networks | √    |
 |                 | Batch Normalization   |      |
 |                 | Dropout               |      |
 | **Assignment3** | Image Generation      |      |
